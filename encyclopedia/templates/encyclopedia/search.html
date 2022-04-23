@@ -1,0 +1,18 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+<h1>Maybe you meant ...</h1>
+{% for sub in list  %}
+
+ {% if title not in sub %}
+{% else %}
+<ul>
+    <li><a href="/wiki/{{ sub }}" >{{sub}}</a></li>
+</ul>
+{% endif %}
+{% endfor %}
+{% endblock %}
