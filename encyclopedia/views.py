@@ -1,5 +1,5 @@
 from ast import For, Return
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from . import util
 from markdown2 import Markdown
 import random
@@ -17,9 +17,7 @@ def entry(request):
             f.write(content)
             f.close()
             data = markdown.convert(util.get_entry(title))
-        return render(request, "encyclopedia/details.html", {
-            "title": data
-        })
+        return redirect('title', title)
     else:
         return render(request, "encyclopedia/entry.html", {
         })
@@ -48,11 +46,7 @@ def search(request):
     if request.method == "POST":
         searched = request.POST['search']
         if searched in util.list_entries():
-            return render(request, "encyclopedia/details.html", {
-                "title": util.get_entry(searched),
-                "random": random.choice(util.list_entries())
-
-            })
+            return redirect('title', searched)
         else:
             return render(request, "encyclopedia/search.html", {
                 "title": searched,
@@ -73,7 +67,7 @@ def edit(request, pk):
         f = open("./entries/"+pk+".md", "w")
         f.write(content)
         f.close()
-        return title(request, pk)
+        return redirect('title', pk)
     return render(request, "encyclopedia/edit.html", {
         "title": pk,
         "random": random.choice(util.list_entries())

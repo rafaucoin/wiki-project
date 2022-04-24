@@ -5,6 +5,7 @@ from django.core.files.storage import default_storage
 
 import random
 
+
 def list_entries():
     """
     Returns a list of all names of encyclopedia entries.
@@ -43,4 +44,4 @@ def ranint():
     print(list_entries())
     all = list_entries()
     print(all[index])
-    return 
+    return
